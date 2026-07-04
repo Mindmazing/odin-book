@@ -8,3 +8,66 @@ input,
 button {
   font: inherit;
 }
+
+/* Global Styles */
+
+:root {
+  --primary: rgb(215, 215, 215);
+  --secondary: rgb(0, 0, 0);
+  --accent: rgb(70, 70, 70);
+}
+
+body {
+  font-family: sans-serif;
+  background-color: var(--primary);
+  color: var(--secondary);
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+header,
+main,
+footer {
+  padding: 2em;
+}
+
+a {
+  text-decoration: none;
+  font-weight: bold;
+  color: var(--accent);
+}
+
+button {
+  background-color: var(--_btn-background, var(--secondary));
+  color: var(--_btn-color, var(--primary));
+
+  padding: 0.8em 2em;
+  font-weight: bold;
+  cursor: pointer;
+  border: none;
+  transition: 0.3s;
+}
+
+button:hover {
+  opacity: 0.7;
+}
+
+/* Header Styles */
+header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--accent);
+}
+
+/* Main Styles */
+main {
+  flex: 1;
+}
+
+/* Footer Styles */
+footer {
+  border-top: 1px solid var(--accent);
+  text-align: center;
+}
