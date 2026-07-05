@@ -9,12 +9,18 @@ button {
   font: inherit;
 }
 
+input,
+img {
+  width: 100%;
+}
+
 /* Global Styles */
 
 :root {
   --primary: rgb(215, 215, 215);
   --secondary: rgb(0, 0, 0);
   --accent: rgb(70, 70, 70);
+  --border: 1.5px solid var(--accent);
 }
 
 body {
@@ -39,18 +45,20 @@ a {
 }
 
 button {
-  background-color: var(--_btn-background, var(--secondary));
-  color: var(--_btn-color, var(--primary));
+  background-color: var(--_btn-background, var(--primary));
+  color: var(--_btn-color, var(--secondary));
+  border: var(--_border, var(--border));
 
+  font-size: 1em;
   padding: 0.8em 2em;
   font-weight: bold;
   cursor: pointer;
-  border: none;
   transition: 0.3s;
 }
 
 button:hover {
-  opacity: 0.7;
+  --_btn-background: var(--secondary);
+  --_btn-color: var(--primary);
 }
 
 /* Header Styles */
@@ -58,7 +66,7 @@ header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  border-bottom: 1px solid var(--accent);
+  border-bottom: var(--border);
 }
 
 /* Main Styles */
@@ -66,8 +74,48 @@ main {
   flex: 1;
 }
 
+.books-container {
+  flex: 1;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-template-rows: 450px;
+  grid-auto-rows: 450px;
+  gap: 2em;
+}
+
+/* card style */
+.book-card {
+  border: var(--border);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.book-details {
+  padding: 1em;
+  display: flex;
+  gap: 1em;
+  flex-direction: column;
+}
+
+.book-buttons {
+  display: flex;
+  gap: 0.5em;
+}
+
+.book-buttons > button {
+  flex: 1;
+}
+
+.delete-btn:hover {
+  --_btn-background: var(--primary);
+  border: none;
+  outline: 2px solid red;
+  --_btn-color: red;
+}
+
 /* Footer Styles */
 footer {
-  border-top: 1px solid var(--accent);
+  border-top: var(--border);
   text-align: center;
 }
