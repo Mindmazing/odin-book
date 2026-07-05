@@ -95,7 +95,6 @@ main {
   border: var(--border);
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
 }
 
 .book-header img {
@@ -107,6 +106,11 @@ main {
   display: flex;
   gap: 1em;
   flex-direction: column;
+  flex: 1;
+}
+
+.book-progress {
+  margin-top: auto;
 }
 
 .book-progress > progress {
