@@ -94,6 +94,10 @@ main {
   justify-content: space-between;
 }
 
+.book-header img {
+  height: 300px;
+}
+
 .book-details {
   padding: 1em;
   display: flex;
