@@ -44,6 +44,10 @@ a {
   color: var(--accent);
 }
 
+p {
+  line-height: 1.5;
+}
+
 button {
   background-color: var(--_btn-background, var(--primary));
   color: var(--_btn-color, var(--secondary));
@@ -98,6 +102,29 @@ main {
   flex-direction: column;
 }
 
+.book-progress > progress {
+  width: 100%;
+  height: 0.4em;
+  border-radius: 0;
+  border: var(--border);
+}
+
+.book-progress > progress::-webkit-progress-bar {
+  background-color: var(--primary);
+}
+
+.book-progress > progress::-webkit-progress-value {
+  background-color: var(--secondary);
+}
+
+.progress-numbers {
+  display: flex;
+  justify-content: space-between;
+  opacity: 0.5;
+  font-size: 0.8rem;
+  margin-top: 0.5em;
+}
+
 .book-buttons {
   display: flex;
   gap: 0.5em;
@@ -109,8 +136,7 @@ main {
 
 .delete-btn:hover {
   --_btn-background: var(--primary);
-  border: none;
-  outline: 2px solid red;
+  --_border: 1.5px solid red;
   --_btn-color: red;
 }
 
