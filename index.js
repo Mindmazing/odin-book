@@ -2,11 +2,12 @@
 const books = [];
 
 // Book Object
-function Book(title, author, pages, progress) {
+function Book(title, author, pages, progress, description) {
   this.title = title;
   this.author = author;
   this.pages = pages;
   this.progress = progress;
+  this.description = description;
   this.id = crypto.randomUUID();
 }
 
