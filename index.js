@@ -91,6 +91,7 @@ Book.prototype.addToSite = function () {
 function addBookToLibrary(title, author, pages, progress, description) {
   let book = new Book(title, author, pages, progress, description);
   books.push(book);
+  book.addToSite();
 }
 
 // add some placeholder books to the books arr
@@ -116,12 +117,7 @@ addBookToLibrary(
   "Dont ever read this book if you are weak",
 );
 
-for (let book of books) {
-  book.addToSite();
-}
-
 // Event Listeners for edit and delete
-
 BOOKS_CONTAINER.addEventListener("click", (event) => {
   let bookCard;
   switch (event.target.classList[0]) {
@@ -152,6 +148,22 @@ CANCEL_ADD_BTN.addEventListener("click", (event) => {
 
 BOOK_DATA_FORM.addEventListener("submit", (event) => {
   NEW_BOOK_POPUP.style.display = "none";
-  restartInputFields();
   event.preventDefault();
+
+  // fetching form data
+  const formData = new FormData(event.target);
+  const bookData = Object.fromEntries(formData.entries());
+  console.log(bookData);
+
+  // add book to array and document
+  addBookToLibrary(
+    bookData["book-title"],
+    bookData["book-author"],
+    bookData["book-pages"],
+    bookData["book-progress"],
+    bookData["book-description"],
+  );
+
+  // restart fields
+  restartInputFields();
 });
