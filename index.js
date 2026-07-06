@@ -135,15 +135,23 @@ BOOKS_CONTAINER.addEventListener("click", (event) => {
   }
 });
 
+function restartInputFields() {
+  document.querySelectorAll("form input, form textarea").forEach((field) => {
+    field.value = "";
+  });
+}
+
 ADD_BOOK_BTN.addEventListener("click", (event) => {
   NEW_BOOK_POPUP.style.display = "block";
 });
 
 CANCEL_ADD_BTN.addEventListener("click", (event) => {
   NEW_BOOK_POPUP.style.display = "none";
+  restartInputFields();
 });
 
 BOOK_DATA_FORM.addEventListener("submit", (event) => {
   NEW_BOOK_POPUP.style.display = "none";
+  restartInputFields();
   event.preventDefault();
 });
