@@ -100,6 +100,10 @@ main {
   flex-direction: column;
 }
 
+.book-card h2 {
+  margin-bottom: 0.2em;
+}
+
 .book-header img {
   height: 300px;
 }

@@ -62,7 +62,7 @@ Book.prototype.addToSite = function () {
           <div class="book-details">
             <div book-title>
               <h2>${this.title}</h2>
-              <span>${this.author}</span>
+              <em>${this.author}</em>
             </div>
             <div class="book-description">
               <p>
@@ -78,8 +78,8 @@ Book.prototype.addToSite = function () {
               </div>
             </div>
             <div class="book-buttons">
-              <button class="delete-btn">Delete</button>
               <button class="edit-btn">Edit</button>
+              <button class="delete-btn">Delete</button>
             </div>
   `;
 
@@ -91,31 +91,177 @@ Book.prototype.addToSite = function () {
 function addBookToLibrary(title, author, pages, progress, description) {
   let book = new Book(title, author, pages, progress, description);
   books.push(book);
-  book.addToSite();
+}
+
+// render books function
+function renderBooks() {
+  for (book of books) {
+    book.addToSite();
+  }
 }
 
 // add some placeholder books to the books arr
 addBookToLibrary(
-  "The merchant of venice",
-  "Shakespear",
-  324,
-  20,
-  "The ultimate book created by shakespear",
+  "To Kill a Mockingbird",
+  "Harper Lee",
+  281,
+  120,
+  "A gripping, heart-wrenching, and wholly remarkable tale of coming-of-age in a South poisoned by virulent prejudice.",
 );
+
 addBookToLibrary(
-  "No country for old men",
-  "Cormac Mcarthy",
+  "1984",
+  "George Orwell",
+  328,
+  328,
+  "A dystopian social science fiction novel and cautionary tale about the dangers of totalitarianism.",
+);
+
+addBookToLibrary(
+  "The Great Gatsby",
+  "F. Scott Fitzgerald",
+  180,
+  45,
+  "A tragic story of jazz-age decadence, unrequited love, and the American Dream.",
+);
+
+addBookToLibrary(
+  "Pride and Prejudice",
+  "Jane Austen",
+  432,
   200,
-  100,
-  "A book about a killer finding a cowboy who stole cartel money.",
+  "A classic romance novel that charts the emotional development of the protagonist, Elizabeth Bennet.",
 );
+
 addBookToLibrary(
-  "Blood Meridian",
-  "Cormac Mcarthy",
-  423,
-  150,
-  "Dont ever read this book if you are weak",
+  "The Hobbit",
+  "J.R.R. Tolkien",
+  310,
+  15,
+  "A fantasy novel following the quest of home-loving Bilbo Baggins to win a share of the treasure guarded by Smaug.",
 );
+
+addBookToLibrary(
+  "Fahrenheit 451",
+  "Ray Bradbury",
+  249,
+  249,
+  "A dystopian novel presenting a future American society where books are outlawed and firemen burn any that are found.",
+);
+
+addBookToLibrary(
+  "Moby-Dick",
+  "Herman Melville",
+  378,
+  89,
+  "An epic tale of the obsessive quest of Ahab, captain of the whaler Pequod, for revenge on a white whale.",
+);
+
+addBookToLibrary(
+  "Dune",
+  "Frank Herbert",
+  412,
+  350,
+  "A sweeping science fiction epic set on the desert planet Arrakis, focusing on politics, religion, and ecology.",
+);
+
+addBookToLibrary(
+  "The Catcher in the Rye",
+  "J.D. Salinger",
+  277,
+  277,
+  "A novel about teenage rebellion and alienation, narrated by the iconic Holden Caulfield.",
+);
+
+addBookToLibrary(
+  "Brave New World",
+  "Aldous Huxley",
+  311,
+  50,
+  "A dystopian vision of a futuristic society heavily controlled by technology, conditioning, and a pleasure-inducing drug.",
+);
+
+addBookToLibrary(
+  "The Lord of the Rings",
+  "J.R.R. Tolkien",
+  1178,
+  600,
+  "An epic high-fantasy tale of a fellowship's journey to destroy the One Ring and defeat the Dark Lord Sauron.",
+);
+
+addBookToLibrary(
+  "Frankenstein",
+  "Mary Shelley",
+  280,
+  140,
+  "A gothic science fiction novel about a young scientist who creates a sapient creature in an unorthodox scientific experiment.",
+);
+
+addBookToLibrary(
+  "The Alchemist",
+  "Paulo Coelho",
+  208,
+  208,
+  "A philosophical book that tells the story of Santiago, an Andalusian shepherd boy who yearns to travel in search of a worldly treasure.",
+);
+
+addBookToLibrary(
+  "Sapiens: A Brief History of Humankind",
+  "Yuval Noah Harari",
+  464,
+  312,
+  "An exploration of how biology and history have defined us and enhanced our understanding of what it means to be human.",
+);
+
+addBookToLibrary(
+  "The Diary of a Young Girl",
+  "Anne Frank",
+  283,
+  100,
+  "The writings from the Dutch-language diary kept by Anne Frank while she was in hiding for two years with her family during the Nazi occupation of the Netherlands.",
+);
+
+addBookToLibrary(
+  "Jane Eyre",
+  "Charlotte Brontë",
+  500,
+  450,
+  "A coming-of-age story following the emotions and experiences of its eponymous heroine and her love for Mr. Rochester.",
+);
+
+addBookToLibrary(
+  "Crime and Punishment",
+  "Fyodor Dostoevsky",
+  671,
+  22,
+  "A psychological drama exploring the mental anguish and moral dilemmas of an impoverished ex-student who formulates a plan to kill an unscrupulous pawnbroker.",
+);
+
+addBookToLibrary(
+  "The Hitchhiker's Guide to the Galaxy",
+  "Douglas Adams",
+  193,
+  193,
+  "A comedic science fiction adventure following the misadventures of the last surviving man, Arthur Dent.",
+);
+
+addBookToLibrary(
+  "A Game of Thrones",
+  "George R.R. Martin",
+  835,
+  701,
+  "The first book in the epic fantasy series A Song of Ice and Fire, filled with political intrigue, magic, and dragons.",
+);
+
+addBookToLibrary(
+  "The Picture of Dorian Gray",
+  "Oscar Wilde",
+  254,
+  0,
+  "A philosophical novel surrounding a portrait that ages and records every sin, while the subject remains youthful and beautiful.",
+);
+
+renderBooks();
 
 // Event Listeners for edit and delete
 BOOKS_CONTAINER.addEventListener("click", (event) => {
@@ -153,7 +299,6 @@ BOOK_DATA_FORM.addEventListener("submit", (event) => {
   // fetching form data
   const formData = new FormData(event.target);
   const bookData = Object.fromEntries(formData.entries());
-  console.log(bookData);
 
   // add book to array and document
   addBookToLibrary(
@@ -163,6 +308,9 @@ BOOK_DATA_FORM.addEventListener("submit", (event) => {
     bookData["book-progress"],
     bookData["book-description"],
   );
+
+  // add book to site
+  books.at(-1).addToSite();
 
   // restart fields
   restartInputFields();
