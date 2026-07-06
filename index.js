@@ -1,4 +1,9 @@
 const BOOKS_CONTAINER = document.querySelector(".books-container");
+const ADD_BOOK_BTN = document.querySelector("#add-book-btn");
+const NEW_BOOK_POPUP = document.querySelector("#new-book-popup");
+const CANCEL_ADD_BTN = document.querySelector("#cancel-add");
+const BOOK_DATA_FORM = document.querySelector("#book-data");
+
 // Books Arr
 const books = [];
 
@@ -128,4 +133,17 @@ BOOKS_CONTAINER.addEventListener("click", (event) => {
       bookCard = event.target.closest(".book-card");
       editBook();
   }
+});
+
+ADD_BOOK_BTN.addEventListener("click", (event) => {
+  NEW_BOOK_POPUP.style.display = "block";
+});
+
+CANCEL_ADD_BTN.addEventListener("click", (event) => {
+  NEW_BOOK_POPUP.style.display = "none";
+});
+
+BOOK_DATA_FORM.addEventListener("submit", (event) => {
+  NEW_BOOK_POPUP.style.display = "none";
+  event.preventDefault();
 });

@@ -5,7 +5,8 @@
 }
 
 input,
-button {
+button,
+textarea {
   font: inherit;
 }
 
@@ -25,6 +26,8 @@ img {
   --secondary: rgb(0, 0, 0);
   --accent: rgb(70, 70, 70);
   --border: 1.5px solid var(--accent);
+
+  --secondary-opacity-05: rgba(0, 0, 0, 0.5);
 }
 
 body {
@@ -145,7 +148,8 @@ main {
   flex: 1;
 }
 
-.delete-btn:hover {
+.delete-btn:hover,
+form button[type="button"]:hover {
   --_btn-background: var(--primary);
   --_border: 1.5px solid red;
   --_btn-color: red;
@@ -155,4 +159,71 @@ main {
 footer {
   border-top: var(--border);
   text-align: center;
+}
+
+/* new book popup */
+#new-book-popup {
+  display: none;
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  background-color: var(--secondary-opacity-05);
+}
+
+#new-book-popup .form-container {
+  display: flex;
+  gap: 2em;
+  flex-direction: column;
+  width: clamp(100px, 80%, 450px);
+  padding: 2em;
+  background-color: var(--primary);
+  border: var(--border);
+  height: 100vh;
+}
+
+#new-book-popup form {
+  display: flex;
+  gap: 1em;
+  flex-direction: column;
+  flex: 1;
+}
+
+.form-row {
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+}
+
+.form-row > div,
+.form-row > button {
+  flex: 1;
+}
+
+.form-row > div {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3em;
+}
+
+label {
+  font-size: 0.8em;
+  font-weight: bold;
+}
+
+form input {
+  padding: 0.6em;
+  border: var(--border);
+  background: var(--primary);
+}
+
+form > div:last-child {
+  margin-top: auto;
+}
+
+textarea {
+  border: none;
+  resize: vertical;
+  border: var(--border);
+  background: var(--primary);
+  padding: 0.5em;
 }
