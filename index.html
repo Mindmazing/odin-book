@@ -10,7 +10,13 @@
   <body>
     <header>
       <h2 class="logo">Odin Library</h2>
-      <button id="add-book-btn">Add Book</button>
+      <button
+        id="add-book-btn"
+        command="show-modal"
+        commandfor="new-book-popup"
+      >
+        Add Book
+      </button>
     </header>
     <main>
       <div class="books-container"></div>
@@ -20,5 +26,39 @@
         Made by <a href="https://github.com" target="_blank">Fredy Villatoro</a>
       </p>
     </footer>
+    <dialog id="new-book-popup">
+      <h2>Add new Book</h2>
+      <form id="book-data">
+        <div class="form-row">
+          <div>
+            <label for="book-title">Title</label>
+            <input type="text" name="book-title" id="book-title" required />
+          </div>
+          <div>
+            <label for="book-author">Author</label>
+            <input type="text" name="book-author" id="book-auhtor" required />
+          </div>
+        </div>
+        <div class="form-row">
+          <div>
+            <label for="book-pages">Number of Pages</label>
+            <input type="number" name="book-pages" id="book-pages" />
+          </div>
+          <div>
+            <label for="book-progress">Current Progress</label>
+            <input type="number" name="book-progress" id="book-progress" />
+          </div>
+        </div>
+        <div class="form-row">
+          <div>
+            <label for="book-description">Description</label>
+            <textarea name="book-description" id="book-description"></textarea>
+          </div>
+          <div class="form-row">
+            <button type="submit">Add Book</button>
+          </div>
+        </div>
+      </form>
+    </dialog>
   </body>
 </html>

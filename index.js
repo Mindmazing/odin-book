@@ -1,5 +1,4 @@
 const BOOKS_CONTAINER = document.querySelector(".books-container");
-
 // Books Arr
 const books = [];
 
@@ -26,10 +25,26 @@ Book.prototype.editBook = function (
   this.progress = newProgress;
 };
 
+function findBookIndex(bookElement) {
+  let bookId = bookElement.getAttribute("data-book-id");
+  return books.findIndex((book) => book.id === bookId);
+}
+
+// delete and edit event listeners
+function deleteBook(book) {
+  let bookIndex = findBookIndex(book);
+  book.remove();
+  books.splice(bookIndex, 1);
+  console.log(books);
+}
+
+function editBook(book) {}
+
 Book.prototype.addToSite = function () {
   // create bookcard element
   let bookCard = document.createElement("div");
   bookCard.classList.add("book-card");
+  bookCard.setAttribute("data-book-id", this.id);
 
   // assign random int for header image selection
   let randomHeaderImg = Math.floor(Math.random() * 4) + 1;
@@ -99,3 +114,18 @@ addBookToLibrary(
 for (let book of books) {
   book.addToSite();
 }
+
+// Event Listeners for edit and delete
+
+BOOKS_CONTAINER.addEventListener("click", (event) => {
+  let bookCard;
+  switch (event.target.classList[0]) {
+    case "delete-btn":
+      bookCard = event.target.closest(".book-card");
+      deleteBook(bookCard);
+      break;
+    case "edit-btn":
+      bookCard = event.target.closest(".book-card");
+      editBook();
+  }
+});
