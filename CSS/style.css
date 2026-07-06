@@ -230,6 +230,7 @@ textarea {
   border: var(--border);
   background: var(--primary);
   padding: 0.5em;
+  height: 10em;
 }
 
 /* Edit Book */
