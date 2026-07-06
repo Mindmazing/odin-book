@@ -3,6 +3,7 @@ const ADD_BOOK_BTN = document.querySelector("#add-book-btn");
 const NEW_BOOK_POPUP = document.querySelector("#new-book-popup");
 const CANCEL_ADD_BTN = document.querySelector("#cancel-add");
 const BOOK_DATA_FORM = document.querySelector("#book-data");
+const SAVE_CHANGES_BTN = document.querySelector("#save-changes");
 
 // Books Arr
 const books = [];
@@ -18,16 +19,18 @@ function Book(title, author, pages, progress, description) {
 }
 
 // this function lets edition in a Book oject
-Book.prototype.editBook = function (
-  newTitle = this.title,
-  newAuthor = this.author,
-  newPages = this.pages,
-  newProgress = this.progress,
+Book.prototype.editBookObject = function (
+  newTitle,
+  newAuthor,
+  newPages,
+  newProgress,
+  newDescription,
 ) {
   this.title = newTitle;
   this.author = newAuthor;
   this.pages = newPages;
   this.progress = newProgress;
+  this.description = newDescription;
 };
 
 function findBookIndex(bookElement) {
@@ -43,7 +46,103 @@ function deleteBook(book) {
   console.log(books);
 }
 
-function editBook(book) {}
+function editBook(bookCard) {
+  let bookIndex = findBookIndex(bookCard);
+  let bookElement = books[bookIndex];
+
+  // open edit book pop up disable submit btn and enable edit-btn
+  NEW_BOOK_POPUP.style.display = "block";
+  NEW_BOOK_POPUP.querySelector("#submit-add-book").style.display = "none";
+  SAVE_CHANGES_BTN.style.display = "block";
+
+  // get header img source
+  let imgSource = bookCard.querySelector("img").getAttribute("src");
+  console.log(imgSource);
+
+  // load data from book
+  let newTitle = NEW_BOOK_POPUP.querySelector('[name="book-title"]');
+  let newAuthor = NEW_BOOK_POPUP.querySelector('[name="book-author"]');
+  let newPages = NEW_BOOK_POPUP.querySelector('[name="book-pages"]');
+  let newProgress = NEW_BOOK_POPUP.querySelector('[name="book-progress"]');
+  let newDescription = NEW_BOOK_POPUP.querySelector(
+    '[name="book-description"]',
+  );
+
+  newTitle.value = bookElement.title;
+  newAuthor.value = bookElement.author;
+  newPages.value = bookElement.pages;
+  newProgress.value = bookElement.progress;
+  newDescription.value = bookElement.description;
+
+  // save changes when btn clicked
+  SAVE_CHANGES_BTN.addEventListener(
+    "click",
+    (event) => {
+      bookElement.title = "Nigger";
+
+      // save changes on books array
+      bookElement.editBookObject(
+        newTitle.value,
+        newAuthor.value,
+        +newPages.value,
+        +newProgress.value,
+        newDescription.value,
+      );
+
+      // change inner html of element to reflect changes
+      bookCard.innerHTML = createBookCard(
+        imgSource,
+        bookElement.title,
+        bookElement.author,
+        bookElement.pages,
+        bookElement.progress,
+        bookElement.description,
+      );
+
+      // close pop up amd restart fields
+      NEW_BOOK_POPUP.style.display = "none";
+      restartInputFields();
+    },
+    { once: true },
+  );
+}
+
+function createBookCard(
+  headerImg,
+  title,
+  author,
+  pages,
+  progress,
+  description,
+) {
+  return `
+    <div class="book-header">
+            <img src=${headerImg} alt="books"/>
+          </div>
+          <div class="book-details">
+            <div book-title>
+              <h2>${title}</h2>
+              <em>${author}</em>
+            </div>
+            <div class="book-description">
+              <p>
+                ${description}
+              </p>
+            </div>
+            <div class="book-progress">
+              <progress max="${pages}" value="${progress}" id="book-progress"></progress>
+              <div class="progress-numbers">
+                <span>0</span>
+                <span>${progress}</span>
+                <span>${pages}</span>
+              </div>
+            </div>
+            <div class="book-buttons">
+              <button class="edit-btn">Edit</button>
+              <button class="delete-btn">Delete</button>
+            </div>
+  `;
+}
 
 Book.prototype.addToSite = function () {
   // create bookcard element
@@ -53,38 +152,20 @@ Book.prototype.addToSite = function () {
 
   // assign random int for header image selection
   let randomHeaderImg = Math.floor(Math.random() * 4) + 1;
+  let randomHeaderSrc = `./images/book-header-${randomHeaderImg}.jpg`;
 
   // create innerHTML for bookcard element
-  bookCard.innerHTML = `
-    <div class="book-header">
-            <img src="./images/book-header-${randomHeaderImg}.jpg" alt="books"/>
-          </div>
-          <div class="book-details">
-            <div book-title>
-              <h2>${this.title}</h2>
-              <em>${this.author}</em>
-            </div>
-            <div class="book-description">
-              <p>
-                ${this.description}
-              </p>
-            </div>
-            <div class="book-progress">
-              <progress max="${this.pages}" value="${this.progress}" id="book-progress"></progress>
-              <div class="progress-numbers">
-                <span>0</span>
-                <span>${this.progress}</span>
-                <span>${this.pages}</span>
-              </div>
-            </div>
-            <div class="book-buttons">
-              <button class="edit-btn">Edit</button>
-              <button class="delete-btn">Delete</button>
-            </div>
-  `;
+  bookCard.innerHTML = createBookCard(
+    randomHeaderSrc,
+    this.title,
+    this.author,
+    this.pages,
+    this.progress,
+    this.description,
+  );
 
   // append bookcard to BOOKS_CONTAINER
-  BOOKS_CONTAINER.appendChild(bookCard);
+  BOOKS_CONTAINER.prepend(bookCard);
 };
 
 // function to add book to library
@@ -273,7 +354,7 @@ BOOKS_CONTAINER.addEventListener("click", (event) => {
       break;
     case "edit-btn":
       bookCard = event.target.closest(".book-card");
-      editBook();
+      editBook(bookCard);
   }
 });
 
@@ -285,6 +366,8 @@ function restartInputFields() {
 
 ADD_BOOK_BTN.addEventListener("click", (event) => {
   NEW_BOOK_POPUP.style.display = "block";
+  NEW_BOOK_POPUP.querySelector("#submit-add-book").style.display = "block";
+  SAVE_CHANGES_BTN.style.display = "none";
 });
 
 CANCEL_ADD_BTN.addEventListener("click", (event) => {

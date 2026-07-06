@@ -153,7 +153,7 @@ main {
 }
 
 .delete-btn:hover,
-form button[type="button"]:hover {
+form #cancel-add:hover {
   --_btn-background: var(--primary);
   --_border: 1.5px solid red;
   --_btn-color: red;
@@ -230,4 +230,9 @@ textarea {
   border: var(--border);
   background: var(--primary);
   padding: 0.5em;
+}
+
+/* Edit Book */
+#save-changes {
+  display: none;
 }
