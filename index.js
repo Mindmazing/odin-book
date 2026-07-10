@@ -8,30 +8,48 @@ const SAVE_CHANGES_BTN = document.querySelector("#save-changes");
 // Books Arr
 const books = [];
 
-// Book Object
-function Book(title, author, pages, progress, description) {
-  this.title = title;
-  this.author = author;
-  this.pages = pages;
-  this.progress = progress;
-  this.description = description;
-  this.id = crypto.randomUUID();
-}
+class Book {
+  constructor(title, author, pages, progress, description) {
+    this.title = title;
+    this.author = author;
+    this.pages = pages;
+    this.progress = progress;
+    this.description = description;
+    this.id = crypto.randomUUID();
+  }
 
-// this function lets edition in a Book oject
-Book.prototype.editBookObject = function (
-  newTitle,
-  newAuthor,
-  newPages,
-  newProgress,
-  newDescription,
-) {
-  this.title = newTitle;
-  this.author = newAuthor;
-  this.pages = newPages;
-  this.progress = newProgress;
-  this.description = newDescription;
-};
+  editBook(newTitle, newAuthor, newPages, newProgress, newDescription) {
+    this.title = newTitle;
+    this.author = newAuthor;
+    this.pages = newPages;
+    this.progress = newProgress;
+    this.description = newDescription;
+  }
+
+  addtoSite() {
+    // create bookcard element
+    let bookCard = document.createElement("div");
+    bookCard.classList.add("book-card");
+    bookCard.setAttribute("data-book-id", this.id);
+
+    // assign random int for header image selection
+    let randomHeaderImg = Math.floor(Math.random() * 4) + 1;
+    let randomHeaderSrc = `./images/book-header-${randomHeaderImg}.jpg`;
+
+    // create innerHTML for bookcard element
+    bookCard.innerHTML = createBookCard(
+      randomHeaderSrc,
+      this.title,
+      this.author,
+      this.pages,
+      this.progress,
+      this.description,
+    );
+
+    // append bookcard to BOOKS_CONTAINER
+    BOOKS_CONTAINER.prepend(bookCard);
+  }
+}
 
 function findBookIndex(bookElement) {
   let bookId = bookElement.getAttribute("data-book-id");
@@ -143,30 +161,6 @@ function createBookCard(
             </div>
   `;
 }
-
-Book.prototype.addToSite = function () {
-  // create bookcard element
-  let bookCard = document.createElement("div");
-  bookCard.classList.add("book-card");
-  bookCard.setAttribute("data-book-id", this.id);
-
-  // assign random int for header image selection
-  let randomHeaderImg = Math.floor(Math.random() * 4) + 1;
-  let randomHeaderSrc = `./images/book-header-${randomHeaderImg}.jpg`;
-
-  // create innerHTML for bookcard element
-  bookCard.innerHTML = createBookCard(
-    randomHeaderSrc,
-    this.title,
-    this.author,
-    this.pages,
-    this.progress,
-    this.description,
-  );
-
-  // append bookcard to BOOKS_CONTAINER
-  BOOKS_CONTAINER.prepend(bookCard);
-};
 
 // function to add book to library
 function addBookToLibrary(title, author, pages, progress, description) {
