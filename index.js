@@ -26,7 +26,7 @@ class Book {
     this.description = newDescription;
   }
 
-  addtoSite() {
+  addToSite() {
     // create bookcard element
     let bookCard = document.createElement("div");
     bookCard.classList.add("book-card");
